@@ -17,3 +17,4 @@ venv3
 .python-version
 .ipynb_checkpoints
 .ropeproject
+.netrc
