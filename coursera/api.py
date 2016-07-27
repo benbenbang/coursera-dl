@@ -21,6 +21,7 @@ from .define import (OPENCOURSE_SUPPLEMENT_URL,
                      OPENCOURSE_API_ASSETS_V1_URL,
                      OPENCOURSE_ONDEMAND_COURSE_MATERIALS,
                      OPENCOURSE_VIDEO_URL,
+                     OPENCOURSE_MEMBERSIPS,
 
                      INSTRUCTIONS_HTML_INJECTION,
 
@@ -123,6 +124,18 @@ class CourseraOnDemand(object):
 
         self._unrestricted_filenames = unrestricted_filenames
 
+    def list_courses(self):
+        """
+        List enrolled courses.
+
+        @return: List of enrolled courses.
+        @rtype: [str]
+        """
+        reply = get_page_json(self._session, OPENCOURSE_MEMBERSIPS)
+        course_list = reply['linked']['courses.v1']
+        slugs = [element['slug'] for element in course_list]
+        return slugs
+
     def extract_links_from_lecture(self,
                                    video_id, subtitle_language='en',
                                    resolution='540p', assets=None):
@@ -181,7 +194,7 @@ class CourseraOnDemand(object):
         """
         # 1. Inject basic CSS style
         css_soup = BeautifulSoup(INSTRUCTIONS_HTML_INJECTION)
-        soup.head.append(css_soup)
+        soup.append(css_soup)
 
         # 2. Replace <text> with <p>
         while soup.find('text'):
