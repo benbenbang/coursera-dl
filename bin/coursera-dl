@@ -1,0 +1,10 @@
+#!/Users/ben/Dropbox/Code/coursera-dl/bin/python3.5
+# EASY-INSTALL-ENTRY-SCRIPT: 'coursera-dl==0.6.1','console_scripts','coursera-dl'
+__requires__ = 'coursera-dl==0.6.1'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('coursera-dl==0.6.1', 'console_scripts', 'coursera-dl')()
+    )
